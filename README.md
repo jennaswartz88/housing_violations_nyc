@@ -76,7 +76,7 @@ print(df.head())
 
 #### Example Output:
 
-![Alt text](images/example_dataframe_output.png)
+![Alt text](src/housing_violations_nyc/images/example_dataframe_output.png)
 
 #### Note
 - The API query has a limit of 100,000 rows. If the dataset exceeds this limit, only a sample is returned.
