@@ -74,6 +74,10 @@ df = get_housing_data("manhattan", 2000)
 print(df.head())
 ```
 
+#### Example Output:
+
+![Alt text](images/example_dataframe_output.png)
+
 #### Note
 - The API query has a limit of 100,000 rows. If the dataset exceeds this limit, only a sample is returned.
 - Example output shows 7,420 rows returned for Manhattan in 2000.
