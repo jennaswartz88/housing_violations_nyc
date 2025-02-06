@@ -82,17 +82,68 @@ print(df.head())
 - The API query has a limit of 100,000 rows. If the dataset exceeds this limit, only a sample is returned.
 - Example output shows 7,420 rows returned for Manhattan in 2000.
 
-### Additional Functions
+### Data Cleaning Functions
 
-The package includes functions for data cleaning and visualization:
+The package includes functions for data cleaning and filtering:
+
 ```bash
 from housing_violations_nyc.housing_violations_nyc import (
-    select_key_columns, clean_inspection_date, drop_nas,
-    count_key_issues, plot_key_issues, count_by_month,
-    plot_time_series, count_key_issues_by_month,
-    plot_issue_trends_by_range, count_by_tract
+    select_key_columns, clean_inspection_date, drop_nas
 )
 ```
+
+#### Note
+- clean_inspection_date must be run on dataframe first in order to run subsequent functions grouping and visualizing violations over time.
+
+### Example: Visualizing Violation Type Frequencies
+
+To visualize the most common violations in Manhattan in 2000:
+
+```bash
+import matplotlib.pyplot as plt
+from housing_violations_nyc.housing_violations_nyc import (count_key_issues, plot_key_issues)
+
+issue_counts = count_key_issues(df)
+plot_key_issues(issue_counts)
+```
+
+#### Example Output:
+
+![Alt text](src/housing_violations_nyc/images/example_barchart_output.png)
+
+For this sample queried dataset (Manhattan in the year 2000), leaks were the most commonly reported violation followed by heating violations.
+
+### Example
+
+### Example: Visualizing General Seasonal Trends
+
+```bash
+from housing_violations_nyc.housing_violations_nyc import (count_by_month, plot_time_series)
+
+month_counts = count_by_month(df)
+plot_time_series(month_counts)
+```
+
+#### Example Output:
+
+![Alt text](src/housing_violations_nyc/images/overall_monthly_count_plot.png)
+
+It looks like in Manhattan in 2000, there was a steep incline yet steady incline in the first half of the year, with the fewest violations in January and the most violations in June. I would have expected more violations in winter months (with insufficient heat or hot water being common tenant complaints), but perhaps many tenants are moving to new housing units in the spring and summer months, thus reporting any issues they've found in their new units to Code Enforcement. Code Enforcement could also simply be slower to respond in the lower volume months, especially in January when many city employees are returning from winter vacation.
+
+### Visualizing Seasonal Trends by Violation Type
+
+```bash
+from housing_violations_nyc.housing_violations_nyc import (count_key_issues_by_month, plot_time_series)
+
+by_month_issues = count_key_issues_by_month(df)
+plot_time_series(by_month_issues)
+```
+
+#### Example Output:
+
+![Alt text](src/housing_violations_nyc/images/monthly_count_plot_by_issue.png)
+
+This plot helps us visualize how the prevalence of each violation type changes throughout the year 2000 in Manhattan. As expected, there were more violations involving hot water in the winter months. There were many reported violations involving leaks in most months, other than January and November. Again though, these slower months could have been due to lack of Code Enforcement reponse in these months versus lack of tenant complaints.
 
 ## Contributing
 
